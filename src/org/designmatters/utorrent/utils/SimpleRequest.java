@@ -1,15 +1,12 @@
 package org.designmatters.utorrent.utils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Authenticator;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.CookieStore;
 import java.net.HttpCookie;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.URL;
@@ -45,16 +42,12 @@ public class SimpleRequest {
 		    Object obj = connection.getContent();
 			connection = url.openConnection();
 		    obj = connection.getContent();
+			str = obj.toString();
 			
 			CookieStore cookieJar = manager.getCookieStore();
 		    for (HttpCookie cookie: cookieJar.getCookies()) {
 		      log.info("Cookie: "+cookie);
 		    }
-		    
-			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-			while ((str = in.readLine()) != null) {
-			}// Read all into str
-			in.close();
 		} catch (MalformedURLException e) {
 			log.error(e,e);
 		} catch (IOException e) {
@@ -64,8 +57,7 @@ public class SimpleRequest {
 	}
 
 	public class MyAuthenticator extends Authenticator {
-		protected PasswordAuthentication getPasswordAuthentication() {
-			//log.info("getPasswordAuthentication("+user+","+password+")");			
+		protected PasswordAuthentication getPasswordAuthentication() {			
 			return new PasswordAuthentication(user, password.toCharArray());
 		}
 	}
