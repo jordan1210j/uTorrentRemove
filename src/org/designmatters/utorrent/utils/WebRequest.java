@@ -51,9 +51,9 @@ public class WebRequest {
 		Iterator<Cookie> cookieIter = cookies.iterator();
 		while (true) {
 			if (!cookieIter.hasNext()) {
-				log.info("Calling Get: "+this._get);
+				log.info("Get: "+this._get);
 				this._response = this._client.execute(this._get);
-				log.info("response: "+this._response);
+				log.info("Response: "+this._response);
 				return GetResponseText(this._response.getEntity().getContent());
 			}
 			Cookie localCookie = (Cookie) cookieIter.next();
